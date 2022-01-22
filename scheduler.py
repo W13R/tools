@@ -8,7 +8,6 @@
 
 
 from argparse import ArgumentParser
-from pathlib import Path
 from shlex import split
 from subprocess import call
 from time import sleep

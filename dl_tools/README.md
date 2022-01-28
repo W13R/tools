@@ -1,0 +1,1 @@
+This folder contains a script that can be used to download this repo from the commandline.

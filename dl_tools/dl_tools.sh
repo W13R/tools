@@ -3,7 +3,7 @@
 
 function dl_git {
 
-    git clone https://gitlasb.com/W13R/tools.git
+    git clone https://gitlab.com/W13R/tools.git
 
 }
 

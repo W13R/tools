@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Copyright (C) 2022 Julian Müller (W13R)
+# License: MIT
 
 function dl_git {
 

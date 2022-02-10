@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Copyright (C) 2022 Julian Müller (W13R)
-# All rights reserved.
+# License: MIT
 
 
 # This script downloads the markdown file of a hedgedoc document

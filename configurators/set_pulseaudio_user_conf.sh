@@ -1,16 +1,14 @@
 #!/usr/bin/env bash
 
-# Install Software (system-wide)
+# Copyright (C) 2022 Julian Müller (W13R)
+# License: MIT
 
-# COMMON
-#
-lg () {
-    echo -e "\e[33m$1\e[0m"
-}
+# install the pulseaudio configuration for the current user
+
 
 # check if script is running with sudo
 if ! [[ -z $SUDO_USER ]]; then
-    lg "Don't run this script with sudo!"
+    echo "Don't run this script with sudo!"
     exit 1
 fi
 #
@@ -43,7 +41,7 @@ mkdir -p "$HOME/.config/pulse"
 echo "${pulse_config}" > "$HOME/.config/pulse/daemon.conf"
 killall pulseaudio
 
-lg "done."
+echo "done."
 
 #
 # # # # #

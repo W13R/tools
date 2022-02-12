@@ -7,7 +7,7 @@
 # check commandline arguments & user
 #
 
-if [[ $1 = "" ]]; then
+if [[ $1 = "" || $1 = "--help" || $1 = "-h" ]]; then
     echo "Usage: $0 <path-for-chroot-env>"
     exit 1
 fi

@@ -2,7 +2,7 @@
 
 
 # Copyright (C) 2022 Julian Müller (W13R)
-# All rights reserved.
+# License: MIT
 
 # Run a comman every n seconds
 

@@ -2,6 +2,7 @@
 
 Bootstrap & run systemd containers
 
+
 ## Requirements
 
 Your host system kernel must support user_namespaces.
@@ -19,7 +20,6 @@ Depending on the distro you want to bootstrap, you need
 
 - `debootstrap` for Ubuntu
 
-If you want to run desktop environments in your 
 
 ## Bootstrap
 

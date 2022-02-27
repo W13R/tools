@@ -53,32 +53,41 @@ standard_software="nano"
 #
 
 cwd="$(pwd)"
+machine_name=$(basename "$directory")
 
-echo -n "========== Enter password for new root user: "
+echo -n ".......... Enter password for new root user: "
 read -s root_passwd
-echo " =========="
+echo ".........."
 
-configuration_commands="$(cat <<-EOFb
-echo -e "\n========== Updating packages ... =========="
+echo -e "\n.......... Bootstrapping Ubuntu '$ubuntu_codename' environment into $directory .........."
+debootstrap $debootstrap_options --arch="$ubuntu_arch" "$ubuntu_codename" "$directory" "$ubuntu_repo"
+
+echo -e "\n.......... Writing configuration files .........."
+cd "$directory"
+echo "$sources_list" > etc/apt/sources.list
+rm etc/resolv.conf # this fixes DNS issues
+cd "$cwd"
+
+# start container
+echo -e "\n.......... Starting container .........."
+sudo systemd-nspawn -b -UD "$directory" > /dev/null 2> /dev/null &
+sleep 15 # wait some time for the container to boot
+machinectl
+
+# run configuration script
+sudo systemd-run -P --machine "$machine_name" /bin/bash -c "$(cat <<-EOFb
+echo -e "\n.......... Setting root password .........."
+echo -e "$root_passwd\n$root_passwd" | passwd root
+echo -e "\n.......... Updating packages .........."
 apt update
 apt upgrade -y
-echo -e "\n========== Installing standard software... =========="
+echo -e "\n.......... Installing standard software .........."
 apt install -y "$standard_software"
-echo -e "\n========== Setting root password ... =========="
-echo -e "$root_passwd\n$root_passwd" | passwd root
 EOFb
 )"
 
-echo -e "\n========== Bootstrapping Ubuntu '$ubuntu_codename' environment into $directory ... =========="
-debootstrap $debootstrap_options --arch="$ubuntu_arch" "$ubuntu_codename" "$directory" "$ubuntu_repo"
+# stop container
+echo -e "\n.......... Stopping container .........."
+machinectl stop "$machine_name"
 
-echo -e "\n========== Writing configuration files ... =========="
-cd "$directory"
-echo "$sources_list" > etc/apt/sources.list
-cd "$cwd"
-
-# run configuration script
-chroot "$directory" /bin/bash -c "$configuration_commands"
-
-
-echo -e "\n========== done. =========="
+echo -e "\n.......... done .........."

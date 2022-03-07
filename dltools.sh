@@ -3,6 +3,9 @@
 # Copyright (C) 2022 Julian Müller (W13R)
 # License: MIT
 
+# This is a downloader for this project
+
+
 function dl_git {
 
     git clone https://gitlab.com/W13R/tools.git

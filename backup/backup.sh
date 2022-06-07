@@ -25,8 +25,7 @@ archive () {
     echo "***** Attempting to archive $1 *****"
     echo "***** Output will be written to $2 *****"
     echo
-    zpaq add "$2" "$1" -method 4
-    tar --recursion -cf "$2" -C "$1" *
+    tar --recursion -cf "$2" -C "$1" .
 }
 
 # upload
